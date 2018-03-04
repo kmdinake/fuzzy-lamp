@@ -75,7 +75,7 @@ fun main(args: Array<String>){
         pso.numberOfDimensions = numberOfDimensions
         pso.numberOfEpochs = numberOfEpochs
         pso.numberOfParticles = numberOfParticles
-        (0.until(4)).forEach { i ->
+        (0.until(11)).forEach { i ->
             pso.initialize("f$i")
             pso.optimize()
             pso.printResults()

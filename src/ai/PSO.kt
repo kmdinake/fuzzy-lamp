@@ -9,7 +9,7 @@ open class PSO {
     protected var yBest: DoubleArray = DoubleArray(0)
     protected var xMin: Double = Double.MIN_VALUE // default
     protected var xMax: Double = Double.MAX_VALUE // default
-    protected var particles: MutableList<Particle> = mutableListOf<Particle>()
+    private var particles: MutableList<Particle> = mutableListOf<Particle>()
     protected val foo: ObjectiveFoo = ObjectiveFoo()
     private val w: Double = 0.729844
     private val c1: Double = 1.49618
@@ -27,47 +27,49 @@ open class PSO {
                 println("Using Objective Function => f0")
             }
             "f1" -> {
-                this.xMin = -100.0
-                this.xMax = 100.00
-                println("Using Objective Function => f1")
+                this.xMin = -600.0
+                this.xMax = 600.0
+                println("Using Objective Function => f6")
             }
             "f2" -> {
-                this.xMin = -10.0
-                this.xMax = 10.00
-                println("Using Objective Function => f2")
+                this.xMin = -100.0
+                this.xMax = 100.0
+                println("Using Objective Function => f15")
             }
             "f3" -> {
                 this.xMin = 0.25
-                this.xMax = 10.00
-                println("Using Objective Function => f3")
+                this.xMax = 10.0
+                println("Using Objective Function => f24")
             }
             "f4" -> {
                 this.xMin = -100.0
-                this.xMax = 100.00
+                this.xMax = 100.0
+                println("Using Objective Function => f16")
             }
             "f5" -> {
-                this.xMin = -100.0
-                this.xMax = 100.00
+                this.xMin = -5.12
+                this.xMax = 5.12
+                println("Using Objective Function => f22")
             }
             "f6" -> {
-                this.xMin = -100.0
-                this.xMax = 100.00
+                this.xMin = 0.0
+                this.xMax = Math.PI
             }
             "f7" -> {
-                this.xMin = -100.0
-                this.xMax = 100.00
+                this.xMin = -1.1
+                this.xMax = 1.1
             }
             "f8" -> {
-                this.xMin = -100.0
-                this.xMax = 100.00
+                this.xMin = -0.5
+                this.xMax = 0.5
             }
             "f9" -> {
                 this.xMin = -100.0
-                this.xMax = 100.00
+                this.xMax = 100.0
             }
             "f10" -> {
-                this.xMin = -100.0
-                this.xMax = 100.00
+                this.xMin = -10.0
+                this.xMax = 10.0
             }
             else -> {
                 this.xMin = 0.0
@@ -110,7 +112,7 @@ open class PSO {
         return Random().nextDouble() * (max - min) + min
     }
 
-    protected fun randomizeRs() {
+    private fun randomizeRs() {
         (0.until(this.numberOfDimensions)).forEach { i ->
             this.r1[i] = uniformDist(0.0, 1.0)
             this.r2[i] = uniformDist(0.0, 1.0)

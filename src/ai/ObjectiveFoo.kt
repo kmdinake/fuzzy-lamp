@@ -1,7 +1,5 @@
 package ai
 
-import kotlin.math.abs
-
 class ObjectiveFoo {
     var fooType: String = ""
 
@@ -51,23 +49,32 @@ class ObjectiveFoo {
     }
 
     private fun f1 (x: DoubleArray): Double {
-        // TODO(reason = "Absolute Value Foo Not Implemented")
-        return x.indices.sumByDouble({ abs(x[it]) })
+        // TODO(reason = "Griewank Foo Not Implemented -> f6")
+        var mul = 1.0
+        val sum = x.sumByDouble({ Math.pow(it, 2.0) })
+        for (j in x.indices) {
+            mul *= Math.cos(x[j] / Math.sqrt(j.toDouble()))
+        }
+        return 1 + (1.0 / 4000.0) * sum - mul
     }
 
     private fun f2 (x: DoubleArray): Double {
-        //TODO(reason = "The Schwefel 2.22 Foo Not Implemented")
+        //TODO(reason = "The Schaffer 6 Foo Not Implemented -> f15")
         var sum = 0.0
-        var mul = 1.0
-        for (j in x.indices) {
-            sum += abs(x[j])
-            mul *= abs(x[j])
-        }
-        return sum + mul
+        var powerSum: Double
+        var dividend: Double
+        var divisor : Double
+        (0.until(x.size)).forEach({ j ->
+            powerSum = Math.pow(x[j], 2.0) + Math.pow(x[j + 1], 2.0)
+            dividend = Math.pow(Math.sin(powerSum), 2.0) - 0.5
+            divisor = Math.pow(1.0 + 0.001 * powerSum, 2.0)
+            sum += (0.5 + dividend / divisor)
+        })
+        return sum
     }
 
     private fun f3 (x: DoubleArray): Double {
-        //TODO(reason = "Vincent Foo Not Implemented")
+        //TODO(reason = "Vincent Foo Not Implemented -> f24")
         val neg = -1.0
         var sum = x.indices.sumByDouble { Math.sin(10.0 * Math.sqrt(x[it])) }
         sum += 1.0
@@ -75,30 +82,96 @@ class ObjectiveFoo {
     }
 
     private fun f4 (x: DoubleArray): Double {
-        TODO(reason = "f4 Not Implemented")
+        //TODO(reason = "Schwefel 1.2 Not Implemented -> f16")
+        var sum = 0.0
+        var innerSum: Double
+        for (j in x.indices) {
+            innerSum = 0.0
+            (0.until(j)).forEach({ k ->
+                innerSum += x[k]
+            })
+            sum += Math.pow(innerSum, 2.0)
+        }
+        return sum
     }
 
     private fun f5 (x: DoubleArray): Double {
-        TODO(reason = "f5 Not Implemented")
+        //TODO(reason = "Spherical Foo Not Implemented -> f22")
+        val beta = -450.0
+        val gamma = 10.0
+        for (j in x.indices) {
+            x[j] = x[j] - gamma
+        }
+        var sum = 0.0
+        for (j in x.indices) {
+            sum += Math.pow(x[j], 2.0)
+        }
+        sum += beta
+        return sum
     }
 
     private fun f6 (x: DoubleArray): Double {
-        TODO(reason = "f6 Not Implemented")
+        //TODO(reason = "Michalewicz Not Implemented -> f8")
+        val neg = -1.0
+        val m = 10.0
+        var sum = 0.0
+        for (j in x.indices) {
+            sum += Math.sin(x[j]) * Math.pow(Math.sin(j * Math.pow(x[j], 2.0) / Math.PI), 2.0 * m)
+        }
+        return sum * neg
     }
 
     private fun f7 (x: DoubleArray): Double {
-        TODO(reason = "f7 Not Implemented")
+        //TODO(reason = "Norwegian Foo Not Implemented -> f9")
+        var mul = 1.0
+        for (j in x.indices) {
+            mul *= Math.cos(Math.PI * Math.pow(x[j], 3.0)) * ((99.0 + x[j]) / 100.0)
+        }
+        return mul
     }
 
     private fun f8 (x: DoubleArray): Double {
-        TODO(reason = "f8 Not Implemented")
+        //TODO(reason = "Weierstrass Foo Not Implemented -> f25")
+        val a = 0.5
+        val b = 3.0
+        val nx = x.size
+        var sum1 = 0.0
+        var sum2 = 0.0
+        var innerSum: Double
+        for (j in x.indices) {
+            innerSum = 0.0
+            (1.until(21)).forEach({ i ->
+                innerSum += (Math.pow(a, i.toDouble()) * Math.cos(2.0 * Math.PI * Math.pow(b, i.toDouble() * (x[j] + 0.5))))
+            })
+            sum1 += innerSum
+        }
+        (1.until(21)).forEach({ i ->
+            sum2 += (Math.pow(a, i.toDouble()) * Math.cos(Math.PI * Math.pow(b, i.toDouble())))
+        })
+        return sum1 - (nx * sum2)
     }
 
     private fun f9 (x: DoubleArray): Double {
-        TODO(reason = "f9 Not Implemented")
+        //TODO(reason = "Schwefel 2.22 Foo Not Implemented -> f19")
+        var max = Math.abs(Double.MIN_VALUE)
+        for (j in x) {
+            if (Math.abs(j) > max) {
+                max = Math.abs(j)
+            }
+        }
+        return max
     }
 
     private fun f10 (x: DoubleArray): Double {
-        TODO(reason = "f10 Not Implemented")
+        //TODO(reason = "Shubert Foo Not Implemented -> f21")
+        var mul = 1.0
+        for (j in x.indices) {
+            var sum = 0.0
+            (1.until(6)).forEach({ i ->
+                sum += (i * Math.cos((i + 1.0) * x[j] + i))
+            })
+            mul *= sum
+        }
+        return mul
     }
 }
