@@ -64,7 +64,7 @@ class ObjectiveFoo {
         var powerSum: Double
         var dividend: Double
         var divisor : Double
-        (0.until(x.size)).forEach({ j ->
+        (0.until(x.size - 1)).forEach({ j ->
             powerSum = Math.pow(x[j], 2.0) + Math.pow(x[j + 1], 2.0)
             dividend = Math.pow(Math.sin(powerSum), 2.0) - 0.5
             divisor = Math.pow(1.0 + 0.001 * powerSum, 2.0)

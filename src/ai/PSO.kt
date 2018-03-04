@@ -81,7 +81,7 @@ open class PSO {
     fun optimize() {
         //TODO("Implement the standard synchronous Star topological PSO a.k.a. gbest PSO")
         createSwarm()
-        println("=================> Optimizing Swarm <=================")
+        println("=> Optimizing Swarm...")
         (0.until(this.numberOfEpochs)).forEach { i ->
             //println("Running Epoch $i ...")
             this.particles.forEach { p ->
@@ -97,10 +97,10 @@ open class PSO {
     }
 
     fun printResults(){
-        println("=================> Printing Swarm Results <=================")
-        for (p in this.particles){
+        println("=> Printing Swarm Results...")
+        /*for (p in this.particles){
             p.stringifyPosbest()
-        }
+        }*/
         print("PSO Best: [")
         for (j in this.yBest.indices) {
             print(" ${this.yBest[j]} ")
@@ -120,7 +120,7 @@ open class PSO {
     }
 
     protected open fun createSwarm() {
-        println("=================> Initializing Swarm <=================")
+        println("=> Initializing Swarm...")
         this.r1 = DoubleArray(this.numberOfDimensions)
         this.r2 = DoubleArray(this.numberOfDimensions)
         this.yBest = DoubleArray(this.numberOfDimensions)
